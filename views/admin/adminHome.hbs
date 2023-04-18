@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+    <title>Document</title>
+    <style>
+        body{
+           background-image: url("../images/pexels-daniel-reche-1556688.jpg");
+           background-size:100%;
+           background-repeat: no-repeat;
+           font-family: 'Montserrat', sans-serif;
+           
+        }
+    nav{
+          height: 6rem;
+          display:unset;
+        }
+    ul {
+  list-style-type: none;
+  margin-top:-3rem;
+  padding:0px  40px ;
+  overflow: hidden;
+  align-items: center;
+  float: right;
+}
+
+li{
+    display: inline;
+}
+
+li a {
+  color: rgba(255, 255, 255, 0.758);
+  text-align: center;
+  padding: 40px 40px;
+  text-decoration: none;
+  font-family: 'Montserrat', sans-serif;
+  font-size: large;
+}
+li a:hover {
+  font-size: 20px;
+  transition: 0.2s
+}
+button{
+    width: 5.5rem;
+        background-color: #181818;
+    border-radius: 7px;
+    border-color:#11111100;
+    height: 2rem;
+    font-size: medium;
+    color: rgba(255, 255, 255, 0.758);
+}
+button:hover{
+    cursor: pointer;
+    background-color: rgba(240, 230, 218, 0.927);
+    color: rgb(77, 24, 24);
+}
+
+.login-box{
+  position: absolute;
+  top: 50%;
+  left: 30%;
+  width: 400px;
+  padding: 40px;
+  transform: translate(-50%, -50%);
+  background: rgba(0,0,0,.5);
+  box-sizing: border-box;
+  box-shadow: 0 15px 25px rgba(0,0,0,.6);
+  border-radius: 10px;
+}
+
+.login-box h2,.login-box2 h2  {
+  margin: 0 0 30px;
+  padding: 0;
+  color: #fff;
+  text-align: center;
+}
+
+.login-box .user-box,.login-box2 .user-box {
+  position: relative;
+  margin-bottom: 1rem;
+}
+
+.login-box .user-box input,.login-box2 .user-box input {
+  width: 100%;
+  padding: 10px 0;
+  font-size: 16px;
+  color: #fff;
+  margin-bottom: 30px;
+  border: none;
+  border-bottom: 1px solid #fff;
+  outline: none;
+  background: transparent;
+}
+.login-box .user-box label,.login-box2 .user-box label {
+  position: absolute;
+  top:0;
+  left: 0;
+  padding: 10px 0;
+  font-size: 16px;
+  color: #fff;
+  pointer-events: none;
+  transition: .5s;
+}
+
+.login-box .user-box input:focus ~ label,
+.login-box .user-box input:valid ~ label,.login-box2 .user-box input:focus ~ label,
+.login-box2 .user-box input:valid ~ label {
+  top: -20px;
+  left: 0;
+  color: #03e9f4;
+  font-size: 12px;
+}
+
+#button {
+  margin-left: 7.5rem;
+      width: 5rem;
+    height: 2rem;
+}
+.login-box2{
+   position: absolute;
+  top: 60%;
+  left: 70%;
+  width: 400px;
+  padding: 40px;
+  transform: translate(-50%, -50%);
+  background: rgba(0,0,0,.5);
+  box-sizing: border-box;
+  box-shadow: 0 15px 25px rgba(0,0,0,.6);
+  border-radius: 10px;
+
+}
+#headingnav{
+color: rgba(255, 255, 255, 0.758);
+    margin-left: 6rem;
+    margin-top: -2.5rem;
+    font-size: x-large;
+}
+#category,#avail{
+  MARGIN-LEFT: 15rem;
+    margin-top: 0.9rem;
+}
+    </style>
+</head>
+<body>
+    <nav>
+     <img src="../images/icons8-knife-and-spatchula-50.png" style="margin-left: 2rem;" > <h2 id="headingnav">SMART-BUTLER</h2>
+      <ul>
+  
+  <li><a href="/adminHome">HOME</a></li>
+  <li><a href="/getdish">DISH</a></li>
+  <li><a href="/getstaff">STAFF</a></li>
+  <li><a href="/getorder">ORDERS</a></li>
+  <li><button>Logout</button></li>
+</ul></nav>
+    <div class="add">
+<div class="login-box">
+  <h2>+Add Staff</h2>
+      <form action="/addstaff" method="post">
+       <div class="user-box">
+      <input type="text" name="staffid" required="" autocomplete="off">
+      <label>Staff-id</label>
+    </div>
+    <div class="user-box">
+      <input type="text" name="staffname" required="" autocomplete="off">
+      <label>Username</label>
+    </div>
+    <div class="user-box">
+      <input type="password" name="staffpass" required="" autocomplete="off">
+      <label>Password</label>
+    </div>
+      <input type="submit" value="Add" id="button" onclick="myfunc()">
+  </form>
+</div>
+
+<div class="login-box2">
+  <h2>+Add Dish</h2>
+      <form action="/add-dish" method="post" enctype="multipart/form-data">
+       <div class="user-box">
+      <input type="text" name="dishname" required="" autocomplete="off">
+      <label>Name</label>
+    </div>
+    <div class="user-box">
+      <input type="file" name="dishimg">
+    </div>
+    <div class="user-box">
+      <select id="category" name="dishcat">
+        {{#each cata}}
+    <option>{{this.name}}</option>
+        {{/each}}
+  </select>
+      <label>Category</label>
+    </div>
+    <div class="user-box">
+      <select id="avail" name="availability">
+     <option value="yes">In Stock</option>
+        <option value="no">Out of Stock</option>
+  </select>
+      <label>Availability</label>
+    </div>
+    <div class="user-box">
+      <input type="text" name="dishdes" required="" autocomplete="off">
+      <label>Description</label>
+    </div>
+    <div class="user-box">
+      <input type="number" name="dishprice" required="" autocomplete="off">
+      <label>Amount</label>
+    </div>
+      <input type="submit" value="Add" id="button" onclick="myfunc()">
+  </form>
+</div>
+    </div>
+    <script>
+function myfunc() {
+  alert("Successfully added ");
+}
+</script>
+</body>
+</html>

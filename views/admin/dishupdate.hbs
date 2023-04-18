@@ -1,0 +1,183 @@
+<html>
+    <head>
+        <style>
+#customers {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 70%;
+  margin: 2rem;
+}
+
+#customers td, #customers th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#customers tr:nth-child(even){background-color: #f2f2f2;}
+
+#customers tr:hover {background-color: #ddd;}
+
+#customers th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #4b0808;
+  color: white;
+}
+.button {
+    display: block;
+    width: 75px;
+    height: 25px;
+    background: #4b0808;
+    padding: 7px;
+    text-align: center;
+    border-radius: 5px;
+    color: white;
+    line-height: 25px;
+    text-decoration: none;
+} nav{
+          height: 6rem;
+          background-color: rgba(0, 0, 0, 0.306);
+          
+        }
+    ul {
+  list-style-type: none;
+  margin: 0;
+  padding:10px  40px ;
+  overflow: hidden;
+  align-items: center;
+  float: right;
+}
+
+li{
+    display: inline;
+}
+
+li a {
+  color: white;
+  text-align: center;
+  padding: 40px 40px;
+  text-decoration: none;
+  font-family: 'Montserrat', sans-serif;
+  font-size: large;
+}
+li a:hover {
+  font-size: 20px;
+  transition: 0.2s
+}button{
+    width: 5.5rem;
+    background-color: #4b0808;
+    border-radius: 7px;
+    border-color:#11111100;
+    height: 2rem;
+    font-size: medium;
+    color: rgb(255, 255, 255);
+}
+button:hover{
+    cursor: pointer;
+    background-color: rgba(240, 230, 218, 0.927);
+    color: rgb(77, 24, 24);
+}
+
+
+
+.login-box{
+  position: absolute;
+  top: 50%;
+  left: 30%;
+  width: 300px;
+  padding: 40px;
+  transform: translate(-50%, -50%);
+  background: #4b0808f6;
+  box-sizing: border-box;
+  box-shadow: 0 15px 25px rgba(0,0,0,.6);
+  border-radius: 10px;
+  margin-left: 44rem;
+}
+
+.login-box h2,.login-box2 h2  {
+  margin: 0 0 30px;
+  padding: 0;
+  color: #fff;
+  text-align: center;
+}
+
+.login-box .user-box,.login-box2 .user-box {
+  position: relative;
+}
+
+.login-box .user-box input,.login-box2 .user-box input {
+  width: 100%;
+  padding: 10px 0;
+  font-size: 16px;
+  color: #fff;
+  margin-bottom: 30px;
+  border: none;
+  border-bottom: 1px solid #fff;
+  outline: none;
+  background: transparent;
+}
+.login-box .user-box label,.login-box2 .user-box label {
+  position: absolute;
+  top:0;
+  left: 0;
+  padding: 10px 0;
+  font-size: 16px;
+  color: #fff;
+  pointer-events: none;
+  transition: .5s;
+}
+
+.login-box .user-box input:focus ~ label,
+.login-box .user-box input:valid ~ label,.login-box2 .user-box input:focus ~ label,
+.login-box2 .user-box input:valid ~ label {
+  top: -20px;
+  left: 0;
+  color: #ffffff;
+  font-size: 12px;
+}
+
+#button {
+  margin-left: 4.7rem;
+      width: 5rem;
+    height: 2rem;
+}
+
+</style>
+    </head>
+    <body>
+        <nav><ul>
+             <li><a href="/addstaff">HOME</a></li>
+             <li><a href="/getdish">DISH</a></li>
+             <li><a href="/getstaff">STAFF</a></li>
+             <li><a href="/getorder">ORDERS</a></li>
+             <li><button>Logout</button></li>
+        </ul></nav>
+        <table id="customers">
+  <tr>
+    
+    <th>Name</th>
+    <th>Image</th>
+    <th>Category</th>
+    <th>Description</th>
+    <th>Availability</th>
+    <th>Change</th>
+    <th>Action</th>
+  </tr>
+  {{#each dish}}
+  <tr>
+    <td>{{this.dishname}}</td>
+    <td>{{this.dishimg}}</td>
+    <td>{{this.dishcat}}</td>
+    <td>{{this.dishdes}}</td>
+    <td>{{this.availability}}</td>
+    <td><form action="/availupdate/{{_id}}?_method=PUT" method="post">
+    <select name="selectVal" id="avail">
+        <option value="yes">In Stock</option>
+        <option value="no">Out of Stock</option>
+    </select></td>
+    <td><input type="submit" class="button" name="button" value="Update"> </form></td>
+  </tr>
+  {{/each}}
+    </body>
+</html>
