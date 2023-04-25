@@ -1,6 +1,10 @@
 <html>
-    <head>
+    <head> 
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
         <style>
+          body{
+            background-color: rgb(243 160 137 / 14%);
+          }
 #headingnav{
  color: rgba(0, 0, 0, 0.758);
  margin-left: 6rem;
@@ -22,10 +26,13 @@ nav{
   border-radius: 2px;
   padding: 3rem;
   margin-left: 2rem ;
-  perspective: 1000px; /* Remove this if you don't want the 3D effect */
+  margin-top: 7rem;
+  perspective: 1000px; 
+  /* Remove this if you don't want the 3D effect */
 }
 h1{
     color:rgba(243, 160, 137, 0.345) ;
+    margin-top: -42px;
 } 
 p{
     color:rgba(243, 160, 137, 0.345) ;
@@ -49,8 +56,8 @@ p{
     line-height: 30px;
     font-size: 20px;
     text-align: center;
-    background: rgba(243, 160, 137, 0.253);
-    color: #000000;
+    background: rgba(207, 162, 150, 0.253);
+    color: #c0a7a7;
     appearance: none;
     outline: 0;
 }
@@ -67,25 +74,69 @@ p{
   margin-top: 3rem;
   background-color: white;
   color: black;
-  border: 2px solid rgba(243, 160, 137, 0.345);
   width:7rem;
   height:3rem;
+    border-radius: 10px;
+    font-size: medium;
+  font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
+
 }
 #btn2{
    background-color: white;
   color: black;
+  font-size: medium;
+  font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
   border: 2px solid rgba(243, 160, 137, 0.345);
-  width:10rem;
-  height:2rem;
+  width:6rem;
+  height:3rem;
   margin-left: 1rem;
+  border-radius: 10px;
 }
 #btn:hover,#btn2:hover{
   background: #efc0c0;
   color: rgb(0, 0, 0);
+  cursor: pointer;
+}#btn2:active,#btn:active{
+  background-color: #ffffff;
+  box-shadow: 0 5px #0000008a;
+  transform: translateY(2px);
+  transition: 1s;
 }
-#table{
-  margin-left: 53rem;
-    margin-top: 3rem;
+#table1{
+     margin-left: 2rem;
+    margin-top: 12px;
+        display: flex;
+    height: 2rem;
+    width: 13rem;
+}
+.login-box{
+  position: absolute;
+    top: 20%;
+    left: 4.5%;
+    width: 90rem;
+    padding: 20px;
+    background: rgba(21, 20, 19, 0.865);;
+    box-sizing: border-box;
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.735);
+  border-radius: 30px;
+}
+h1,p,h3{
+  color: #fffaf0f2;
+}
+#billDiv{
+  position: absolute;
+    width: 90rem;
+    padding: 20px;
+    background: rgba(21, 20, 19, 0.865);;
+    box-sizing: border-box;
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.735);
+  border-radius: 30px;
+  display: block;
+    width: 40rem;
+    margin-left: 23rem;
+    padding: inherit;
+    margin-top: 4rem;
+
 }
 </style>
     </head>
@@ -99,7 +150,15 @@ p{
       <nav>
      <img src="../../images/imgonline-com-ua-Negative-kQnLU8t3pC-removebg-preview.png" style="margin-left: 2rem;x" >
       <h2 id="headingnav" style="margin-top: -2rem;">SMART-BUTLER</h2>
-    {{#each dishes}}
+       <div  class="alertDiv" style="display:none">
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+  <strong  id="notification">Your order Sent to Kitchen</strong> 
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+      </div>
+    <div class="login-box">
+      <h1 style="margin: 2rem;margin-left: 37rem; font-family:cursive">Eat good Feel good</h1>
+          {{#each dishes}}
      <div class="flip-card">
      <h1>{{dishname}}</h1> 
      <input type="hidden" id="ids" value="{{_id}}">
@@ -107,29 +166,40 @@ p{
 <img src="/images/dishimages/{{_id}}.jpg"style="width:200px;height:200px;"alt="no image">
     <p style="width:500px">{{dishdes}}</p>
     <h3>${{dishprice}}</h3>
-<div class="counter">
-  <span class="down" onClick='decreaseCount(event, this)'>-</span>
-  <input type="text" id="{{_id}}" value="0">
-  <span class="up" onClick='increaseCount(event, this)'>+</span>
-<button id="btn2" onclick="createOrder('{{_id}}')">add</button>
-     </div>  
-    </div>
-  </div>
-  </a>
-{{/each}}
-<div id="table">
-<h3>
-  SELECT TABLE
-</h3>
-    <select name="" id="table">
+   <div id="table1">
+<label style="color:#efc0c0;">
+    SELECT TABLE
+</label>
+    <select name="{{_id}}" id="table1">
         <option value="1">1</option>
         <option value="2">2</option>
         <option value="3">3</option>
         <option value="4">4</option>
     </select>
 </div>
+<div class="counter">
+  <span class="down" onClick='decreaseCount(event, this)' style="color:#efc0c0">-</span>
+  <input type="text" id="{{_id}}" value="0">
+  <span class="up" onClick='increaseCount(event, this)'style="color:#efc0c0">+</span>
+  <div>
+<button id="btn2" onclick="createOrder('{{_id}}')" >Add Item</button>
+</div>
+     </div>  
+    </div>
+  </div>
+  <hr color="white">
+{{/each}}
 
 <button id="btn" onclick="finishOrder()">Finish Order</button>
+
+ <div id="billDiv"  style="display:none;" class="answer_list" >
+ <h1 style="text-align: center;color:rgb(211, 190, 190);margin-top: 1rem;" id="amt"></h1>
+ <h2>Dish :</h2>
+ <h2>Amount :</h2>
+<h2>Dish :</h2>
+ <h2>Amount :</h2>
+ </div>
+</div>
 </body>
 <script>
 function increaseCount(a,b){
@@ -150,26 +220,29 @@ function decreaseCount(a, b) {
   }
 }
 
- let array = []
+
 function createOrder(id){
   console.log(id)
   console.log(document.getElementById(id).value)
   let dish_id = id;
   let qty = document.getElementById(id).value;
+   let selectedBox = document.getElementsByName(id);
+    let selectedValue = selectedBox.options[selectedBox.selectedIndex].value;
     let obj = {
         dish_id,
-        qty
+        qty,
+        selectedValue
     }
-    array.push(obj)
-}
-function finishOrder(){
- console.log(array,"hey.............")
-  $.post("/users/finishOrder",
-    {array},
-  function(data,status){
+    $.post("/users/addOrde",obj,function(data,status){
     console.log(data)
   })
-
-
+}
+function finishOrder(){
+  $.post("/users/finishOrder",function(data,status){
+    console.log(data)
+      document.getElementById("amt").innerHTML = "Order Received !"
+      document.getElementById('billDiv').style.display = "block";
+      window.location="#billDiv"
+      })
 }
 </script></html>

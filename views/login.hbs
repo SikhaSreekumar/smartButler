@@ -70,7 +70,9 @@ body {
       width: 5rem;
     height: 2rem;
 }
-
+#invalid{
+  color: rgb(227, 92, 92);
+}
     </style>
 </head>
 <body>
@@ -79,6 +81,7 @@ body {
   <h2>Log-In</h2>
   <form action="/login" method="post">
     <div class="user-box">
+     
       <input type="text" name="uname" required="" autocomplete="off">
       <label>Username</label>
     </div>
@@ -89,7 +92,7 @@ body {
       <input type="submit" value="Login" id="button">
    <br>
    <pre>
-       <p style="color:azure;">     Don't have an account? <a href="index">Create</a></pre>
+      <p id="invalid">{{invalid}}</p> <p style="color:azure;">     Don't have an account? <a href="index">Create</a></pre>
   </form>
 </div>
 </body>

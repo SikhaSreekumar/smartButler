@@ -4,6 +4,7 @@ const dishmodel = require('../models/dishmodel');
 const staffmodel = require('../models/staffmodel');
 const usermodel = require('../models/usermodel');
 const categorymodel = require('../models/categorymodel');
+const orderModel = require('../models/orderModel');
 var router = express.Router();
 
 /* GET home page. */
@@ -53,6 +54,8 @@ router.post('/login', async(req,res)=>{
           res.redirect('/staffview')
     }
     else{
+      res.render('login',{invalid:'Invalid username or password'})
+      // res.redirect('/login')
       console.log("no user")
     }
   } catch (error) {
@@ -125,8 +128,24 @@ router.get('/getdish',async(req,res)=>{
    console.log(error)
   } 
  })
-
-
+ router.get('/getorder',async(req,res)=>{
+  try{
+    let order= await orderModel.find({status:"pending"})
+    console.log(order)
+    res.render("admin/orderupdate",{order})
+  }catch(error){
+    console.log(error)
+  }
+ })
+ router.get('/getorderlist',async(req,res)=>{
+  try{
+    let order= await orderModel.find()
+    console.log(order)
+    res.render("admin/orderlist",{order})
+  }catch(error){
+    console.log(error)
+  }
+ })
  router.get('/staffview',async(req,res)=>{
   try {
    let dish=await dishmodel.find()
@@ -147,7 +166,7 @@ router.get('/removestaff/:id',async(req,res)=>{
   } catch (error) {
     console.log(error)
   }
-})
+});
 router.get('/removedish/:id',async(req,res)=>{
   let dish_id=req.params.id;
   try {
@@ -157,40 +176,44 @@ router.get('/removedish/:id',async(req,res)=>{
   } catch (error) {
     console.log(error)
   }
+});
+router.post('/availupdate/:id',async(req,res)=>{
+ let id=req.params.id;
+ try{
+  let update = await dishmodel.findByIdAndUpdate(id,{ availability:req.body.selectVal },{new:true})
+  console.log(update);
+  res.redirect('/staffview')
+ }
+ catch{console.error();}
+});
+router.post('/orderupdate/:id',async(req,res)=>{
+  let id = req.params.id;
+  try{
+    let update = await orderModel.findByIdAndUpdate(id,{status:"prepared"},{new:true})
+    console.log(update);
+    res.redirect('/getorder')
+  }
+  catch{console.error();}
 })
-router.get('/availupdate/:id/edit',async(req,res)=>{
-  dishmodel.findById(req.params.id,function(err,dishFound){
-    if(err){
-      console.log(err);
-    }else{
-      res.render("edit",{dish:dishFound});
-    }
-  });
-});
-router.put('/availupdate/:id',function(req,res){
-  dishmodel.findByIdAndUpdate(req.params.id, req.body.dish, {new: true},function (err, dishupdated) {
-    if(err){
-        console.log(err);
-    } else{
-        res.redirect('/availupdate' + req.params.id);
-    }
- });
-});
-//   let dish_id=req.params.id;
-//   let e = document.getElementById("selectVal");
-// let value = e.value;
-// let text = e.options[e.selectedIndex].text;
-//   try {
-//     await dishmodel.findByIdAndUpdate(dish_id,{availability:req.body.avail},function(err,docs){
-//       if (err){
-//           console.log(err)
-//       }
-//       else{
-//           console.log("Updated User : ", docs);
-//       }})
-//     console.log("availability updated")
-//     res.redirect("/staffview")
-//   } catch (error) {
-//     console.log(error)
-//   }
+router.get('/approve/:id',async(req,res)=>{
+  try {
+    let id = req.params.id;
+        var orders = await OrderModel.findByIdAndUpdate({_id:id},{$set :{status:"preparing.."}});
+       res.redirect('/getorder')
+  } catch (error) {
+    console.log(error)
+  }
+})
+
+router.get('/sentTo/:id',async(req,res)=>{
+  try {
+    let id = req.params.id;
+        var orders = await OrderModel.findByIdAndUpdate({_id:id},{$set :{status:"reaching Now.."}});
+       res.redirect('/getorder')
+  } catch (error) {
+    console.log(error)
+  }
+})
+router.get('/orders',async(req,res)=>{
+res.render("admin/orders")})
 module.exports = router;

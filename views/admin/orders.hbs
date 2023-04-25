@@ -1,0 +1,106 @@
+<html>
+    <head>
+        <style>
+#customers {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 90%;
+  margin: 2rem;
+}
+#customers td, #customers th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+#customers tr:nth-child(even){background-color: #f2f2f2;}
+#customers tr:hover {background-color: #ddd;}
+#customers th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #4b0808;
+  color: white;
+}
+.button {
+    display: block;
+    width: 75px;
+    height: 25px;
+    background: #4b0808;
+    padding: 7px;
+    text-align: center;
+    border-radius: 5px;
+    color: white;
+    line-height: 25px;
+    text-decoration: none;
+} nav{
+          height: 6rem;
+          background-color: rgba(0, 0, 0, 0.306);
+          
+        }
+    ul {
+  list-style-type: none;
+  margin: 0;
+  padding:10px  40px ;
+  overflow: hidden;
+  align-items: center;
+  float: right;
+}
+li{
+    display: inline;
+}
+li a {
+  color: white;
+  text-align: center;
+  padding: 40px 40px;
+  text-decoration: none;
+  font-family: 'Montserrat', sans-serif;
+  font-size: large;
+}
+li a:hover {
+  font-size: 20px;
+  transition: 0.2s
+}button{
+    width: 5.5rem;
+    background-color: #4b0808;
+    border-radius: 7px;
+    border-color:#11111100;
+    height: 2rem;
+    font-size: medium;
+    color: rgb(255, 255, 255);
+}
+button:hover{
+    cursor: pointer;
+    background-color: rgba(240, 230, 218, 0.927);
+    color: rgb(77, 24, 24);
+}
+</style>
+    </head>
+    <body>
+        <nav><ul>
+             <li><a href="/addstaff">HOME</a></li>
+             <li><a href="/getdish">DISH</a></li>
+             <li><a href="/getstaff">STAFF</a></li>
+             <li><a href="/getorder">ORDERS</a></li>
+             <li><button>Logout</button></li>
+        </ul></nav>
+        <table id="customers">
+  <tr>
+    <th>Dish Name</th>
+    <th>Price</th>
+    <th>Status</th>
+    <th>Table</th>
+    <th>Action</th>
+    <th>Action</th>
+  </tr>
+  {{#each orders}}
+  <tr>
+    <td>{{this.dishname}}</td>
+    <td>{{this.dishprice}}</td>
+    <td>{{this.status}}</td>
+    <td>{{Table}}</td>
+    
+    <td><a href="/approve/{{_id}}" class="button">approved</a></td>
+    <td><a href="/sentTo/{{_id}}" class="button">To Table</a></td>
+  </tr>
+  {{/each}}
+    </body>
+</html>

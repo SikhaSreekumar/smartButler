@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+.login-box{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 500px;
+  padding: 40px;
+  color: rgba(250, 235, 215, 0.753);
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.799);
+  box-sizing: border-box;
+  box-shadow: 0 15px 25px rgba(0,0,0,.6);
+  border-radius: 10px;
+}
+button {
+  margin-left: 10rem;
+      width: 5rem;
+    height: 2rem;
+}
+a{
+color: rgba(250, 235, 215, 0.753);
+}</style>
+    </head>
+<body>
+  
+<div class="login-box">
+<h1 id="demo">Order confirming</h1>
+<p id="c">Please click the cancel button to cancel your order [10 sec]
+</p>
+<h3><a href="/users" id="home"></a></h3>
+<button id="cancelbutton"onclick="myStopFunction()">Cancel</button>
+<script>
+const myTimeout = setTimeout(myGreeting, 5000);
+
+function myGreeting() {
+  document.getElementById("demo").innerHTML = "Order is preparing!"
+  document.getElementById("c").innerHTML = ""
+   setTimeout(function(){document.getElementById("cancelbutton").disabled = true;});
+}
+
+function myStopFunction() {
+  clearTimeout(myTimeout);
+  document.getElementById("demo").innerHTML = "Order has been cancelled!"
+  document.getElementById("c").innerHTML = ""
+  document.getElementById("home").innerHTML = "Go back"
+  setTimeout(function(){document.getElementById("cancelbutton").disabled = true;});
+  setTimeout(function(){document.getElementById("home").disabled = false;});
+}
+</script>
+</div>
+</body>
+</html>
