@@ -4,6 +4,7 @@ var router = express.Router();
 var categoryModel = require('../models/categorymodel');
 const { route } = require('.');
 const orderModel = require('../models/orderModel');
+const tablemodel = require('../models/tablemodel');
 /* GET users listing. */
 
 router.get('/', async(req,res)=>{
@@ -20,9 +21,10 @@ router.get('/', async(req,res)=>{
 router.get('/dishDetails/:cata', async(req,res)=>{
   console.log(req.params.cata)
   let dishes = await dishmodel.find({dishcat:req.params.cata,availability:"yes"})
+  let tbl = await tablemodel.find();
   console.log(dishes)
   req.session.dishes =[]
-  res.render('user/dishdisplay',{dishes})
+  res.render('user/dishdisplay',{dishes,tbl})
 })
 
 var newPrize =0;
@@ -83,11 +85,12 @@ router.get('/finish',(req,res)=>{
     console.log(error)
   }
 })
-router.get('/getOrderStatus',async(req,res)=>{
+router.get('/OrderStatus/:tbl',async(req,res)=>{
   try {
-      let statusData = await orderModel.find({staus:"pending"})
+      console.log(req.params.tbl)
+      let statusData = await orderModel.find({status:"pending",Table:req.params.tbl})
       console.log(statusData)
-      res.render("user/orderStatus",{statusData})
+      res.render("user/orderstatus",{statusData})
   } catch (error) {
     
   }

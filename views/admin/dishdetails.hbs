@@ -37,7 +37,7 @@
     text-decoration: none;
 } nav{
           height: 6rem;
-          background-color: rgba(0, 0, 0, 0.306);
+          background-color: #4b0808;
           
         }
     ul {
@@ -83,7 +83,20 @@ button:hover{
 
 .login-box{
   position: absolute;
-  top: 50%;
+  top: 40%;
+  left: 40%;
+  width: 300px;
+  padding: 40px;
+  transform: translate(-50%, -50%);
+  background: #4b0808f6;
+  box-sizing: border-box;
+  box-shadow: 0 15px 25px rgba(0,0,0,.6);
+  border-radius: 10px;
+  margin-left: 44rem;
+}
+.login-box2{
+  position: absolute;
+  top: 75%;
   left: 40%;
   width: 300px;
   padding: 40px;
@@ -142,11 +155,43 @@ button:hover{
       width: 5rem;
     height: 2rem;
 }
+#headingnav{
+color: rgba(255, 255, 255, 0.758);
+    margin-left: 6rem;
+    margin-top: -2.5rem;
+    font-size: x-large;
+}
+    ul {
+  list-style-type: none;
+  margin-top:-3rem;
+  padding:0px  40px ;
+  overflow: hidden;
+  align-items: center;
+  float: right;
+}
 
+li{
+    display: inline;
+}
+
+li a {
+  color: rgba(255, 255, 255, 0.758);
+  text-align: center;
+  padding: 40px 40px;
+  text-decoration: none;
+  font-family: 'Montserrat', sans-serif;
+  font-size: large;
+}
+li a:hover {
+  font-size: 20px;
+  transition: 0.2s
+}
 </style>
     </head>
     <body>
-        <nav><ul>
+        <nav>
+     <img src="../images/icons8-knife-and-spatchula-50.png" style="margin-left: 2rem;" > <h2 id="headingnav">SMART-BUTLER</h2>
+          <ul>
              <li><a href="/addstaff">HOME</a></li>
              <li><a href="/getdish">DISH</a></li>
              <li><a href="/getstaff">STAFF</a></li>
@@ -180,6 +225,16 @@ button:hover{
     </div>
     <div class="user-box">
       <input type="file" name="image">
+    </div>
+      <input type="submit" value="Add" id="button">
+  </form>
+</div>
+<div class="login-box2">
+  <h2>+Add Table</h2>
+      <form action="/addtable" method="post">
+       <div class="user-box">
+      <input type="text" name="name" required="" autocomplete="off">
+      <label>Table</label>
     </div>
       <input type="submit" value="Add" id="button">
   </form>

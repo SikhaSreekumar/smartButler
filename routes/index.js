@@ -5,6 +5,7 @@ const staffmodel = require('../models/staffmodel');
 const usermodel = require('../models/usermodel');
 const categorymodel = require('../models/categorymodel');
 const orderModel = require('../models/orderModel');
+const tablemodel = require('../models/tablemodel');
 var router = express.Router();
 
 /* GET home page. */
@@ -91,6 +92,18 @@ router.post('/addcategory', async(req,res)=>{
   }
   // res.render('admin/dishdetails')
 })
+router.post('/addtable', async(req,res)=>{
+  console.log(req.body)
+  try {
+    let cat = await tablemodel.create(req.body);
+        console.log("table inserted")
+        console.log(req.body)
+        res.redirect('/getdish')
+      }
+   catch (error) {
+    console.log(error)
+  }
+})
 router.get('/', function(req, res, next) {
   res.render('index');
 });
@@ -130,7 +143,7 @@ router.get('/getdish',async(req,res)=>{
  })
  router.get('/getorder',async(req,res)=>{
   try{
-    let order= await orderModel.find({status:"pending"})
+    let order= await orderModel.find()
     console.log(order)
     res.render("admin/orderupdate",{order})
   }catch(error){
@@ -186,19 +199,19 @@ router.post('/availupdate/:id',async(req,res)=>{
  }
  catch{console.error();}
 });
-router.post('/orderupdate/:id',async(req,res)=>{
-  let id = req.params.id;
-  try{
-    let update = await orderModel.findByIdAndUpdate(id,{status:"prepared"},{new:true})
-    console.log(update);
-    res.redirect('/getorder')
-  }
-  catch{console.error();}
-})
+// router.post('/orderupdate/:id',async(req,res)=>{
+//   let id = req.params.id;
+//   try{
+//     let update = await orderModel.findByIdAndUpdate(id,{status:"prepared"},{new:true})
+//     console.log(update);
+//     res.redirect('/getorder')
+//   }
+//   catch{console.error();}
+// })
 router.get('/approve/:id',async(req,res)=>{
   try {
     let id = req.params.id;
-        var orders = await OrderModel.findByIdAndUpdate({_id:id},{$set :{status:"preparing.."}});
+        var orders = await orderModel.findByIdAndUpdate({_id:id},{$set :{status:"preparing.."}});
        res.redirect('/getorder')
   } catch (error) {
     console.log(error)
@@ -208,7 +221,7 @@ router.get('/approve/:id',async(req,res)=>{
 router.get('/sentTo/:id',async(req,res)=>{
   try {
     let id = req.params.id;
-        var orders = await OrderModel.findByIdAndUpdate({_id:id},{$set :{status:"reaching Now.."}});
+        var orders = await orderModel.findByIdAndUpdate({_id:id},{$set :{status:"reaching Now.."}});
        res.redirect('/getorder')
   } catch (error) {
     console.log(error)

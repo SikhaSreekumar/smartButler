@@ -28,7 +28,7 @@
 .button {
     display: block;
     width: 95px;
-    height: 45px;
+    height: 35px;
     background: #4b0808;
     margin: 1rem;
     text-align: center;
@@ -194,6 +194,7 @@ li a:hover {
     <th>Table</th>
     <th>Status</th>
     <th>Action</th>
+    <th>Action</th>
   </tr>
   {{#each order}}
   <tr>
@@ -205,8 +206,8 @@ li a:hover {
     <td>{{this.newPrize}}</td>
     <td>{{this.Table}}</td>
     <td>{{this.status}}</td>
-    <td><form action="/orderupdate/{{_id}}" method="post">
-    <input type="submit" class="button" id="button1" name="button" value="Prepared">
+    <td><a href="/approve/{{_id}}" class="button">approved</a></td>
+    <td><a href="/sentTo/{{_id}}" class="button">To Table</a></td>
     </form></td>
   </tr>
   {{/each}}

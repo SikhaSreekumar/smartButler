@@ -92,6 +92,18 @@ p{
   margin-left: 1rem;
   border-radius: 10px;
 }
+#btn3{
+  margin-left: 40rem;
+  margin-top: 3rem;
+  background-color: white;
+  color: black;
+  width:7rem;
+  height:3rem;
+    border-radius: 10px;
+    font-size: medium;
+  font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
+
+}
 #btn:hover,#btn2:hover{
   background: #efc0c0;
   color: rgb(0, 0, 0);
@@ -123,21 +135,7 @@ p{
 h1,p,h3{
   color: #fffaf0f2;
 }
-#billDiv{
-  position: absolute;
-    width: 90rem;
-    padding: 20px;
-    background: rgba(21, 20, 19, 0.865);;
-    box-sizing: border-box;
-  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.735);
-  border-radius: 30px;
-  display: block;
-    width: 40rem;
-    margin-left: 23rem;
-    padding: inherit;
-    margin-top: 4rem;
 
-}
 </style>
     </head>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"
@@ -182,7 +180,7 @@ h1,p,h3{
   <input type="text" id="{{_id}}" value="0">
   <span class="up" onClick='increaseCount(event, this)'style="color:#efc0c0">+</span>
   <div>
-<button id="btn2" onclick="createOrder('{{_id}}')" >Add Item</button>
+<button id="btn2" onclick="createOrder('{{_id}}')" >Add Item </button>
 </div>
      </div>  
     </div>
@@ -190,16 +188,18 @@ h1,p,h3{
   <hr color="white">
 {{/each}}
 
+
+
+ <div id="billDiv"  style="display:none;"  >
+ <h1 style="text-align: center;color:rgb(211, 190, 190);margin-top: 1rem;" id="amt"></h1>
+ </div>
+ <div id="billDiv2"  style="display:none;padding-left:20rem;height:3rem"  >
+ {{#each dishes}}
+ <button id="btn3" onclick="order('{{_id}}')">Check status</button>
+ {{/each}}
+ </div>
 <button id="btn" onclick="finishOrder()">Finish Order</button>
 
- <div id="billDiv"  style="display:none;" class="answer_list" >
- <h1 style="text-align: center;color:rgb(211, 190, 190);margin-top: 1rem;" id="amt"></h1>
- <h2>Dish :</h2>
- <h2>Amount :</h2>
-<h2>Dish :</h2>
- <h2>Amount :</h2>
- </div>
-</div>
 </body>
 <script>
 function increaseCount(a,b){
@@ -220,13 +220,13 @@ function decreaseCount(a, b) {
   }
 }
 
-
+let array = []
 function createOrder(id){
   console.log(id)
   console.log(document.getElementById(id).value)
   let dish_id = id;
   let qty = document.getElementById(id).value;
-   let selectedBox = document.getElementsByName(id);
+   let selectedBox = document.getElementsByName(id)[0];
     let selectedValue = selectedBox.options[selectedBox.selectedIndex].value;
     let obj = {
         dish_id,
@@ -235,14 +235,24 @@ function createOrder(id){
     }
     $.post("/users/addOrde",obj,function(data,status){
     console.log(data)
+   
+     document.getElementById("amt").innerHTML = data
   })
+}
+function order(id)
+{
+   let selectedBox = document.getElementsByName(id)[0];
+    let selectedValue = selectedBox.options[selectedBox.selectedIndex].value;
+    window.location="/users/OrderStatus/"+selectedValue;
 }
 function finishOrder(){
   $.post("/users/finishOrder",function(data,status){
     console.log(data)
+     document.getElementById("amt").innerHTML = data
       document.getElementById("amt").innerHTML = "Order Received !"
       document.getElementById('billDiv').style.display = "block";
-      window.location="#billDiv"
+      document.getElementById('billDiv2').style.display = "inline-flex";
       })
 }
+
 </script></html>
